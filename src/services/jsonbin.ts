@@ -4,10 +4,6 @@ export interface JsonBinResponse {
   record: {
     reports: AnimalReport[];
   };
-  metadata: {
-    id: string;
-    createdAt: string;
-  };
 }
 
 // -- Config from .env -- //
