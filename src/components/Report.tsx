@@ -24,7 +24,9 @@ function Report() {
   } | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
+  // Submit lost pet report
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!photo) {
@@ -36,6 +38,7 @@ function Report() {
       return;
     }
     try {
+      setLoading(true);
       const imageUrl = await uploadImage(photo);
 
       // Get all the reports
@@ -66,6 +69,8 @@ function Report() {
       return;
     } catch (err) {
       setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -145,8 +150,11 @@ function Report() {
           />
         </label>{" "}
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          Submit
+        </button>
         {error && <p style={{ color: "red" }}>{error}</p>}
+        {loading && <p>Processing</p>}
       </form>
     </>
   );
