@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-import type { AnimalReport } from "../types";
-import { ReportStatus } from "../types";
+import type { AnimalReport } from "../../types";
+import { ReportStatus } from "../../types";
 import { Link } from "react-router-dom";
 
 // custom iconds
@@ -36,7 +36,7 @@ function ReportMap({ reports }: ReportMapProps) {
     <MapContainer
       center={SFU} // SFU coordinates
       zoom={13}
-      style={{ height: "400px", width: "100%" }}
+      style={{ height: "500px", width: "100%" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
@@ -51,15 +51,22 @@ function ReportMap({ reports }: ReportMapProps) {
               icon={report.status === ReportStatus.Lost ? lostIcon : foundIcon}
             >
               <Popup>
-                <img
-                  src={report.photo}
-                  alt={report.name}
-                  style={{ width: "100px" }}
-                />
-                <br />
-                <strong>{report.name}</strong> — {report.type}
-                <br />
-                <Link to={`/report/${report.id}`}>View Details</Link>
+                <div className="align-center">
+                  <img
+                    src={report.photo}
+                    alt={report.name}
+                    style={{ width: "100px" }}
+                  />
+                  <br />
+                  <strong>{report.name}</strong> — {report.type}
+                  <br />
+                  <Link
+                    to={`/report/${report.id}`}
+                    className="btn btn-sm w-100 py-1 fw-bold"
+                  >
+                    View Details
+                  </Link>
+                </div>
               </Popup>
             </Marker>
           ))}
